@@ -20,8 +20,9 @@ class CarService implements IService<ICar> {
   }
 
   public async readOne(_id: string):Promise<ICar | null> {
+    if (_id.length < 24) { return null; }
     const car = await this._CarModel.readOne(_id);
-    if (!car) throw new Error('Criar erro 1');
+    if (!car) throw new Error('404');
     return car;
   }
 
