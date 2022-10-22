@@ -13,9 +13,11 @@ describe('Car service', () => {
     sinon
       .stub(carModel, 'create').resolves(carMockWithId)
     sinon
-      .stub(carModel, 'read').resolves()
+      .stub(carModel, 'read').resolves([carMockWithId])
     sinon
       .stub(carModel, 'readOne').resolves(carMockWithId)
+    sinon
+      .stub(carModel, 'delete').resolves(carMockWithId)
   });
 
   after(()=>{
@@ -39,6 +41,13 @@ describe('Car service', () => {
   describe('read a car', () => {
     it('success', async () => {
       const car = await carService.readOne('6353edb3665f07130107f630');
+      expect(car).to.be.deep.equal(carMockWithId);
+    });
+  });
+
+  describe('delete a car', () => {
+    it('success', async () => {
+      const car = await carService.delete('6353edb3665f07130107f630');
       expect(car).to.be.deep.equal(carMockWithId);
     });
   });
