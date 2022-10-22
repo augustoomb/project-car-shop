@@ -45,8 +45,9 @@ class CarService implements IService<ICar> {
   }
 
   public async delete(_id: string): Promise<ICar | null> {
+    if (_id.length < 24) { return null; }    
     const car = await this._CarModel.delete(_id);
-    if (!car) throw new Error('Criar erro 2');
+    if (!car) throw new Error('404');
     return car;
   }
 }
