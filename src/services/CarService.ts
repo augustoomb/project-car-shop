@@ -27,6 +27,7 @@ class CarService implements IService<ICar> {
   }
 
   public async update(_id: string, obj: unknown): Promise<ICar | null> {
+    if (_id.length < 24) { return null; }
     const parsedCar = CarZodSchema.safeParse(obj); // vendo se o obj é do tipo Car mesmo
 
     if (!parsedCar.success) {
@@ -34,7 +35,7 @@ class CarService implements IService<ICar> {
     }
 
     const car = await this._CarModel.update(_id, parsedCar.data);
-    if (!car) throw new Error('Criar erro 2');
+    if (!car) throw new Error('Object not found');
     return car;
   }
 
