@@ -20,7 +20,7 @@ describe('Car service', () => {
 
   describe('create car', () => {
     it('success', async () => {
-      const carCreated = await carModel.create(carMock);
+      const carCreated = await carService.create(carMock);
       expect(carCreated).to.be.deep.equal(carMockWithId);
     });
   });
