@@ -2,7 +2,7 @@ import * as sinon from 'sinon';
 import chai from 'chai';
 import CarModel from '../../../models/CarModel';
 import CarService from '../../../services/CarService';
-import { carMock, carMockWithId } from '../../mocks/carMocks';
+import { carMock, carMockWithId, carMockForChange, carMockForChangeWithId } from '../../mocks/carMocks';
 const { expect } = chai;
 
 describe('Car service', () => {
@@ -18,6 +18,8 @@ describe('Car service', () => {
       .stub(carModel, 'readOne').resolves(carMockWithId)
     sinon
       .stub(carModel, 'delete').resolves(carMockWithId)
+    sinon
+      .stub(carModel, 'update').resolves(carMockForChangeWithId)    
   });
 
   after(()=>{
@@ -49,6 +51,13 @@ describe('Car service', () => {
     it('success', async () => {
       const car = await carService.delete('6353edb3665f07130107f630');
       expect(car).to.be.deep.equal(carMockWithId);
+    });
+  });
+
+  describe('update a car', () => {
+    it('success', async () => {
+      const car = await carService.update('6353edb3665f07130107f630', carMockForChange);
+      expect(car).to.be.deep.equal(carMockForChange);
     });
   });
 
