@@ -45,18 +45,20 @@ export default class CarController {
     req: Request,
     res: Response,
   ) {
-    try {
-      if (Object.keys(req.body).length === 0) { 
-        return res.status(400).json({ error: '' });
-      }
-      const results = await this._serviceCar.update(req.params.id, req.body);
-      if (!results) { 
-        return res.status(400).json({ error: this.size });
-      }
-      return res.status(200).json(results);
-    } catch (error) {
-      return res.status(404).json({ error: this.notFound });
-    }
+    const results = await this._serviceCar.update(req.params.id, req.body);
+    return res.status(200).json(results);
+    // try {
+    //   if (Object.keys(req.body).length === 0) { 
+    //     return res.status(400).json({ error: '' });
+    //   }
+    //   const results = await this._serviceCar.update(req.params.id, req.body);
+    //   if (!results) { 
+    //     return res.status(400).json({ error: this.size });
+    //   }
+    //   return res.status(200).json(results);
+    // } catch (error) {
+    //   return res.status(404).json({ error: this.notFound });
+    // }
   }
 
   public async delete(
