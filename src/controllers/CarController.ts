@@ -4,9 +4,6 @@ import IService from '../interfaces/IService';
 
 export default class CarController {
   constructor(private _serviceCar: IService<ICar>) {}
-  // refatorar!
-  notFound = 'Object not found';
-  size = 'Id must have 24 hexadecimal characters';
 
   public async create(
     req: Request,
@@ -30,15 +27,6 @@ export default class CarController {
   ) {
     const results = await this._serviceCar.readOne(req.params.id);
     return res.status(200).json(results);
-    // try {
-    //   const results = await this._serviceCar.readOne(req.params.id);
-    //   if (!results) { 
-    //     return res.status(400).json({ error: this.size });
-    //   }
-    //   return res.status(200).json(results);
-    // } catch (error) {
-    //   return res.status(404).json({ error: this.notFound });
-    // }
   }
   
   public async update(
@@ -47,18 +35,6 @@ export default class CarController {
   ) {
     const results = await this._serviceCar.update(req.params.id, req.body);
     return res.status(200).json(results);
-    // try {
-    //   if (Object.keys(req.body).length === 0) { 
-    //     return res.status(400).json({ error: '' });
-    //   }
-    //   const results = await this._serviceCar.update(req.params.id, req.body);
-    //   if (!results) { 
-    //     return res.status(400).json({ error: this.size });
-    //   }
-    //   return res.status(200).json(results);
-    // } catch (error) {
-    //   return res.status(404).json({ error: this.notFound });
-    // }
   }
 
   public async delete(
@@ -67,14 +43,5 @@ export default class CarController {
   ) {
     await this._serviceCar.delete(req.params.id);
     return res.status(204).end();
-    // try {
-    //   const results = await this._serviceCar.delete(req.params.id);
-    //   if (!results) { 
-    //     return res.status(400).json({ error: this.size });
-    //   }
-    //   return res.status(204).end();
-    // } catch (error) {
-    //   return res.status(404).json({ error: this.notFound });
-    // }
   }
 }
