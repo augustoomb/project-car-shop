@@ -1,18 +1,25 @@
-// import { ErrorRequestHandler } from 'express';
-// import { ZodError } from 'zod';
+import { ErrorRequestHandler } from 'express';
+import { ZodError } from 'zod';
+import { ErrorTypes, errorCatalog } from '../erros/catalog';
 
-// const errorHandler: ErrorRequestHandler = (
-//   err,
-//   _req,
-//   res,
-// ) => {
-//   console.log('chegou aqui!');
-//   if (err instanceof ZodError) { 
-//     // se for nós sabemos que é um erro de validação e podemos usar o status 400 e a própria mensagem do zod para retornar a response
-//     return res.status(400).json({ message: err.issues });
-//   }
-//   console.log(err);
-//   return res.status(400).json({ meuErroTeste: 'Deu pau' });
-// };
+const errorHandler: ErrorRequestHandler = ( 
+  err: Error | ZodError, 
+  _req,
+  res,
+  _next,
+) => {
+  console.log('aqui!!!');
+  if (err instanceof ZodError) { 
+    return res.status(400).json({ message: err.issues });
+  }
+  const messageAsErrorType = err.message as keyof typeof ErrorTypes;
+  const mappedError = errorCatalog[messageAsErrorType];
+  if (mappedError) {
+    const { httpStatus, error } = mappedError;
+    return res.status(httpStatus).json({ error });
+  }
+  console.error(err);
+  return res.status(500).json({ message: 'internal error' });
+};
 
-// export default errorHandler;
+export default errorHandler;

@@ -10,16 +10,10 @@ export default class CarController {
 
   public async create(
     req: Request,
-    res: Response,
+    res: Response<ICar>,
   ) {
-    // const results = await this._serviceCar.create(req.body);
-    // return res.status(201).json(results);
-    try {
-      const results = await this._serviceCar.create(req.body);
-      return res.status(201).json(results);
-    } catch (error) {
-      return res.status(400).json(error);
-    }
+    const results = await this._serviceCar.create(req.body);
+    return res.status(201).json(results);
   }
 
   public async read(
@@ -34,15 +28,17 @@ export default class CarController {
     req: Request,
     res: Response,
   ) {
-    try {
-      const results = await this._serviceCar.readOne(req.params.id);
-      if (!results) { 
-        return res.status(400).json({ error: this.size });
-      }
-      return res.status(200).json(results);
-    } catch (error) {
-      return res.status(404).json({ error: this.notFound });
-    }
+    const results = await this._serviceCar.readOne(req.params.id);
+    return res.status(200).json(results);
+    // try {
+    //   const results = await this._serviceCar.readOne(req.params.id);
+    //   if (!results) { 
+    //     return res.status(400).json({ error: this.size });
+    //   }
+    //   return res.status(200).json(results);
+    // } catch (error) {
+    //   return res.status(404).json({ error: this.notFound });
+    // }
   }
   
   public async update(
