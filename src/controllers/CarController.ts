@@ -65,14 +65,16 @@ export default class CarController {
     req: Request,
     res: Response,
   ) {
-    try {
-      const results = await this._serviceCar.delete(req.params.id);
-      if (!results) { 
-        return res.status(400).json({ error: this.size });
-      }
-      return res.status(204).end();
-    } catch (error) {
-      return res.status(404).json({ error: this.notFound });
-    }
+    await this._serviceCar.delete(req.params.id);
+    return res.status(204).end();
+    // try {
+    //   const results = await this._serviceCar.delete(req.params.id);
+    //   if (!results) { 
+    //     return res.status(400).json({ error: this.size });
+    //   }
+    //   return res.status(204).end();
+    // } catch (error) {
+    //   return res.status(404).json({ error: this.notFound });
+    // }
   }
 }
