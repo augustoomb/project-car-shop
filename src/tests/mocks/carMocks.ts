@@ -9,6 +9,15 @@ const carMock: ICar = {
   "doorsQty": 2
 };
 
+const carMockForChange: ICar = {
+  "model": "Ferrari Maranello",
+  "year": 2006,
+  "color": "red",
+  "buyValue": 3500000,
+  "seatsQty": 2,
+  "doorsQty": 2
+};
+
 const carMockWithId: ICar & { _id:String } = {
   "model": "Ferrari Maranello",
   "year": 1963,
@@ -19,4 +28,14 @@ const carMockWithId: ICar & { _id:String } = {
   "_id": "6353edb3665f07130107f630"
 }
 
-export {carMock, carMockWithId};
+const carMockForChangeWithId: ICar & { _id:String } = {
+  "model": "Ferrari Maranello",
+  "year": 2006,
+  "color": "red",
+  "buyValue": 3500000,
+  "seatsQty": 2,
+  "doorsQty": 2,
+  "_id": "6353edb3665f07130107f630"
+};
+
+export {carMock, carMockWithId, carMockForChange, carMockForChangeWithId};
